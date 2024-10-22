@@ -1,0 +1,104 @@
+-- Set the outdoor and indoor ambience colors
+local outdoorAmbienceColor = Color3.fromRGB(135, 206, 235) -- Skyblue
+local indoorAmbienceColor = Color3.fromRGB(0, 0, 139) -- Dark Blue
+
+-- Function to set outdoor ambience
+local function setOutdoorAmbience()
+    game.Lighting.Ambient = outdoorAmbienceColor
+    print("Outdoor ambience set to Skyblue.")
+end
+
+-- Function to set indoor ambience
+local function setIndoorAmbience()
+    game.Lighting.Ambient = indoorAmbienceColor
+    print("Indoor ambience set to Dark Blue.")
+end
+
+-- Example usage:
+setOutdoorAmbience() -- Call this to set outdoor ambience
+
+-- To switch to indoor ambience, you can call:
+-- setIndoorAmbience() -- Uncomment this line to switch to indoor ambience
+
+task.wait(.1)
+
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+
+-- Instances: 6 | Scripts: 1 | Modules: 0 | Tags: 0
+local G2L = {};
+
+-- ServerStorage.fov
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["Name"] = [[fov]];
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+
+
+-- ServerStorage.fov.Frame
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(171, 255, 255);
+G2L["2"]["Size"] = UDim2.new(0, 376, 0, 370);
+G2L["2"]["Position"] = UDim2.new(0.34053, 0, 0.29218, 0);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["BackgroundTransparency"] = 0.67;
+
+
+-- ServerStorage.fov.Frame.UICorner
+G2L["3"] = Instance.new("UICorner", G2L["2"]);
+G2L["3"]["CornerRadius"] = UDim.new(0.5, 8);
+
+
+-- ServerStorage.fov.Frame.Gradient
+G2L["4"] = Instance.new("UIGradient", G2L["2"]);
+G2L["4"]["Rotation"] = -27;
+G2L["4"]["Name"] = [[Gradient]];
+G2L["4"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(171, 255, 255)),ColorSequenceKeypoint.new(0.651, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 0, 0))};
+
+
+-- ServerStorage.fov.Frame.UIStroke
+G2L["5"] = Instance.new("UIStroke", G2L["2"]);
+G2L["5"]["Thickness"] = 1.5;
+
+
+-- ServerStorage.fov.Frame.LocalScript
+G2L["6"] = Instance.new("LocalScript", G2L["2"]);
+
+
+
+-- ServerStorage.fov.Frame.LocalScript
+local function C_6()
+local script = G2L["6"];
+    local Player = game.Players.LocalPlayer
+    local PlayerGui = Player:WaitForChild("PlayerGui")
+    
+    local ScreenGui = PlayerGui:WaitForChild("fov") -- Replace with your ScreenGui name
+    local Frame = ScreenGui:WaitForChild("Frame") -- Replace with your Frame name
+    
+    local Gradient = Frame:WaitForChild("Gradient") -- Replace with your Gradient name
+    
+    local speed = 1 -- Smoothness of frame movement
+    local rotationSpeed = 1.7 -- Gradient rotation speed
+    
+    local function updateFramePosition()
+        local mouse = Player:GetMouse()
+        local targetPosition = UDim2.new(0, mouse.X - (Frame.Size.X.Offset / 2), 0, mouse.Y - (Frame.Size.Y.Offset / 2))
+    
+        Frame.Position = Frame.Position:Lerp(targetPosition, speed)
+    
+        Gradient.Rotation = Gradient.Rotation + rotationSpeed
+    end
+    
+    game:GetService("RunService").RenderStepped:Connect(updateFramePosition)
+end;
+task.spawn(C_6);
+
+return G2L["1"], require;
+
+
