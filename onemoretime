@@ -7,341 +7,84 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 19 | Scripts: 4 | Modules: 0 | Tags: 0
+-- Instances: 7 | Scripts: 2 | Modules: 0 | Tags: 0
 local G2L = {};
 
--- StarterGui.watermark
+-- StarterGui.fov
 G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
-G2L["1"]["Name"] = [[watermark]];
+G2L["1"]["Name"] = [[fov]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 
 
--- StarterGui.watermark.main
+-- StarterGui.fov.Frame
 G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["BorderSizePixel"] = 0;
-G2L["2"]["BackgroundColor3"] = Color3.fromRGB(15, 14, 14);
-G2L["2"]["Size"] = UDim2.new(0, 306, 0, 18);
-G2L["2"]["Position"] = UDim2.new(0.01425, 0, 0.01531, 0);
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(171, 255, 255);
+G2L["2"]["Size"] = UDim2.new(0, 376, 0, 370);
+G2L["2"]["Position"] = UDim2.new(0.34053, 0, 0.29218, 0);
 G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["2"]["Name"] = [[main]];
+G2L["2"]["BackgroundTransparency"] = 0.67;
 
 
--- StarterGui.watermark.main.UIStroke
-G2L["3"] = Instance.new("UIStroke", G2L["2"]);
-G2L["3"]["Thickness"] = 1.3;
-G2L["3"]["Color"] = Color3.fromRGB(171, 255, 255);
+-- StarterGui.fov.Frame.UICorner
+G2L["3"] = Instance.new("UICorner", G2L["2"]);
+G2L["3"]["CornerRadius"] = UDim.new(0.5, 8);
 
 
--- StarterGui.watermark.main.UIStroke.UIGradient
-G2L["4"] = Instance.new("UIGradient", G2L["3"]);
-G2L["4"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(171, 255, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(90, 135, 135))};
+-- StarterGui.fov.Frame.Gradient
+G2L["4"] = Instance.new("UIGradient", G2L["2"]);
+G2L["4"]["Rotation"] = -27;
+G2L["4"]["Name"] = [[Gradient]];
+G2L["4"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(171, 255, 255)),ColorSequenceKeypoint.new(0.651, Color3.fromRGB(0, 0, 0)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(0, 0, 0))};
 
 
--- StarterGui.watermark.main.LocalScript
-G2L["5"] = Instance.new("LocalScript", G2L["2"]);
+-- StarterGui.fov.Frame.UIStroke
+G2L["5"] = Instance.new("UIStroke", G2L["2"]);
+G2L["5"]["Thickness"] = 1.5;
 
 
-
--- StarterGui.watermark.main.fpscount
-G2L["6"] = Instance.new("TextLabel", G2L["2"]);
-G2L["6"]["TextStrokeTransparency"] = 0;
-G2L["6"]["BorderSizePixel"] = 0;
-G2L["6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["6"]["TextSize"] = 16;
-G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["6"]["BackgroundTransparency"] = 1;
-G2L["6"]["Size"] = UDim2.new(0, 22, 0, 16);
-G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["Text"] = [[0]];
-G2L["6"]["Name"] = [[fpscount]];
-G2L["6"]["Position"] = UDim2.new(0.59997, 0, -0.00571, 0);
-
-
--- StarterGui.watermark.main.fpscount.LocalScript
-G2L["7"] = Instance.new("LocalScript", G2L["6"]);
+-- StarterGui.fov.Frame.LocalScript
+G2L["6"] = Instance.new("LocalScript", G2L["2"]);
 
 
 
--- StarterGui.watermark.main..dev
-G2L["8"] = Instance.new("TextLabel", G2L["2"]);
-G2L["8"]["TextStrokeTransparency"] = 0;
-G2L["8"]["BorderSizePixel"] = 0;
-G2L["8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["8"]["TextSize"] = 15;
-G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["8"]["TextColor3"] = Color3.fromRGB(171, 255, 255);
-G2L["8"]["BackgroundTransparency"] = 1;
-G2L["8"]["Size"] = UDim2.new(0, 20, 0, 17);
-G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["8"]["Text"] = [[.dev]];
-G2L["8"]["Name"] = [[.dev]];
-G2L["8"]["Position"] = UDim2.new(0.206, 0, 0.04656, 0);
-
-
--- StarterGui.watermark.main.line
-G2L["9"] = Instance.new("Frame", G2L["2"]);
-G2L["9"]["BorderSizePixel"] = 0;
-G2L["9"]["BackgroundColor3"] = Color3.fromRGB(66, 66, 66);
-G2L["9"]["Size"] = UDim2.new(0, 1, 0, 17);
-G2L["9"]["Position"] = UDim2.new(0.71762, 0, 0.04984, 0);
-G2L["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9"]["Name"] = [[line]];
-
-
--- StarterGui.watermark.main.LocalScript
-G2L["a"] = Instance.new("LocalScript", G2L["2"]);
+-- StarterGui.fov.LocalScript
+G2L["7"] = Instance.new("LocalScript", G2L["1"]);
 
 
 
--- StarterGui.watermark.main.serenium
-G2L["b"] = Instance.new("TextLabel", G2L["2"]);
-G2L["b"]["TextStrokeTransparency"] = 0;
-G2L["b"]["BorderSizePixel"] = 0;
-G2L["b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["TextSize"] = 15;
-G2L["b"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["BackgroundTransparency"] = 1;
-G2L["b"]["Size"] = UDim2.new(0, 64, 0, 17);
-G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b"]["Text"] = [[serenium]];
-G2L["b"]["Name"] = [[serenium]];
-G2L["b"]["Position"] = UDim2.new(-0.00025, 0, 0.04984, 0);
-
-
--- StarterGui.watermark.main.line
-G2L["c"] = Instance.new("Frame", G2L["2"]);
-G2L["c"]["BorderSizePixel"] = 0;
-G2L["c"]["BackgroundColor3"] = Color3.fromRGB(66, 66, 66);
-G2L["c"]["Size"] = UDim2.new(0, -1, 0, 17);
-G2L["c"]["Position"] = UDim2.new(0.44778, 0, 0.04984, 0);
-G2L["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["c"]["Name"] = [[line]];
-
-
--- StarterGui.watermark.main.text
-G2L["d"] = Instance.new("TextLabel", G2L["2"]);
-G2L["d"]["TextStrokeTransparency"] = 0;
-G2L["d"]["BorderSizePixel"] = 0;
-G2L["d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["d"]["TextSize"] = 14;
-G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["d"]["TextColor3"] = Color3.fromRGB(171, 255, 255);
-G2L["d"]["BackgroundTransparency"] = 1;
-G2L["d"]["Size"] = UDim2.new(0, 22, 0, 17);
-G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["d"]["Text"] = [[fps:]];
-G2L["d"]["Name"] = [[text]];
-G2L["d"]["Position"] = UDim2.new(0.48886, 0, -0.00571, 0);
-
-
--- StarterGui.watermark.main.text
-G2L["e"] = Instance.new("TextLabel", G2L["2"]);
-G2L["e"]["TextStrokeTransparency"] = 0;
-G2L["e"]["BorderSizePixel"] = 0;
-G2L["e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["e"]["TextSize"] = 14;
-G2L["e"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["e"]["BackgroundTransparency"] = 1;
-G2L["e"]["Size"] = UDim2.new(0, 30, 0, 17);
-G2L["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["e"]["Text"] = [[0.00]];
-G2L["e"]["Name"] = [[text]];
-G2L["e"]["Position"] = UDim2.new(0.74703, 0, 0.04984, 0);
-
-
--- StarterGui.watermark.main.text
-G2L["f"] = Instance.new("TextLabel", G2L["2"]);
-G2L["f"]["TextStrokeTransparency"] = 0;
-G2L["f"]["BorderSizePixel"] = 0;
-G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["TextSize"] = 14;
-G2L["f"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["BackgroundTransparency"] = 1;
-G2L["f"]["Size"] = UDim2.new(0, 10, 0, 17);
-G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["f"]["Text"] = [[/]];
-G2L["f"]["Name"] = [[text]];
-G2L["f"]["Position"] = UDim2.new(0.84833, 0, -0.00571, 0);
-
-
--- StarterGui.watermark.main.text
-G2L["10"] = Instance.new("TextLabel", G2L["2"]);
-G2L["10"]["TextStrokeTransparency"] = 0;
-G2L["10"]["BorderSizePixel"] = 0;
-G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["10"]["TextSize"] = 15;
-G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["10"]["TextColor3"] = Color3.fromRGB(171, 255, 255);
-G2L["10"]["BackgroundTransparency"] = 1;
-G2L["10"]["Size"] = UDim2.new(0, 5, 0, 16);
-G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["10"]["Text"] = [[ms]];
-G2L["10"]["Name"] = [[text]];
-G2L["10"]["Position"] = UDim2.new(0.90716, 0, 0.04984, 0);
-
-
--- StarterGui.watermark.main.line
-G2L["11"] = Instance.new("Frame", G2L["2"]);
-G2L["11"]["BorderSizePixel"] = 0;
-G2L["11"]["BackgroundColor3"] = Color3.fromRGB(66, 66, 66);
-G2L["11"]["Size"] = UDim2.new(0, -1, 0, 17);
-G2L["11"]["Position"] = UDim2.new(0.30399, 0, 0.04984, 0);
-G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["11"]["Name"] = [[line]];
-
-
--- StarterGui.watermark.main.text
-G2L["12"] = Instance.new("TextLabel", G2L["2"]);
-G2L["12"]["TextStrokeTransparency"] = 0;
-G2L["12"]["BorderSizePixel"] = 0;
-G2L["12"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["12"]["TextSize"] = 14;
-G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["12"]["TextColor3"] = Color3.fromRGB(171, 255, 255);
-G2L["12"]["BackgroundTransparency"] = 1;
-G2L["12"]["Size"] = UDim2.new(0, 26, 0, 16);
-G2L["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["12"]["Text"] = [[lite]];
-G2L["12"]["Name"] = [[text]];
-G2L["12"]["Position"] = UDim2.new(0.33345, 0, 0.1054, 0);
-
-
--- StarterGui.watermark.LocalScript
-G2L["13"] = Instance.new("LocalScript", G2L["1"]);
-
-
-
--- StarterGui.watermark.main.LocalScript
-local function C_5()
-local script = G2L["5"];
-	-- Services and references
-	local TweenService = game:GetService("TweenService")
-	local mainFrame = script.Parent -- Assuming the script is inside "main" frame
-	local sereniumLabel = mainFrame:WaitForChild("serenium")
-	local devLabel = mainFrame:WaitForChild(".dev")
-	local rewriteLabel = mainFrame:WaitForChild("rewrite")
+-- StarterGui.fov.Frame.LocalScript
+local function C_6()
+local script = G2L["6"];
+	local Player = game.Players.LocalPlayer
+	local PlayerGui = Player:WaitForChild("PlayerGui")
 	
-	-- Initial setup
-	rewriteLabel.TextTransparency = 1 -- "rewrite" starts invisible
-	sereniumLabel.TextTransparency = 0 -- "serenium" starts visible
-	devLabel.TextTransparency = 0 -- ".dev" starts visible
+	local ScreenGui = PlayerGui:WaitForChild("fov") -- Replace with your ScreenGui name
+	local Frame = ScreenGui:WaitForChild("Frame") -- Replace with your Frame name
 	
-	-- Tween settings
-	local fadeDuration = 3
-	local displayDuration = 3
-	local tweenInfo = TweenInfo.new(fadeDuration, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+	local Gradient = Frame:WaitForChild("Gradient") -- Replace with your Gradient name
 	
-	-- Tween functions
-	local function fadeIn(label)
-		return TweenService:Create(label, tweenInfo, {TextTransparency = 0})
+	local speed = 1 -- Smoothness of frame movement
+	local rotationSpeed = 1.7 -- Gradient rotation speed
+	
+	local function updateFramePosition()
+		local mouse = Player:GetMouse()
+		local targetPosition = UDim2.new(0, mouse.X - (Frame.Size.X.Offset / 2), 0, mouse.Y - (Frame.Size.Y.Offset / 2))
+	
+		Frame.Position = Frame.Position:Lerp(targetPosition, speed)
+	
+		Gradient.Rotation = Gradient.Rotation + rotationSpeed
 	end
 	
-	local function fadeOut(label)
-		return TweenService:Create(label, tweenInfo, {TextTransparency = 1})
-	end
-	
-	-- Fade sequence
-	local function startFadeSequence()
-		-- Step 1: Fade out "serenium" and ".dev"
-		local fadeOutSerenium = fadeOut(sereniumLabel)
-		local fadeOutDev = fadeOut(devLabel)
-	
-		fadeOutSerenium:Play()
-		fadeOutDev:Play()
-	
-		fadeOutSerenium.Completed:Wait() -- Wait until both fade out
-	
-		-- Step 2: Fade in "rewrite" in green
-		rewriteLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		local fadeInRewrite = fadeIn(rewriteLabel)
-		fadeInRewrite:Play()
-	
-		fadeInRewrite.Completed:Wait() -- Wait until "rewrite" fades in
-	
-		-- Step 3: Wait for 5 seconds
-		wait(displayDuration)
-	
-		-- Step 4: Fade out "rewrite"
-		local fadeOutRewrite = fadeOut(rewriteLabel)
-		fadeOutRewrite:Play()
-	
-		fadeOutRewrite.Completed:Wait() -- Wait until "rewrite" fades out
-	
-		-- Step 5: Fade in "serenium" and ".dev"
-		local fadeInSerenium = fadeIn(sereniumLabel)
-		local fadeInDev = fadeIn(devLabel)
-	
-		fadeInSerenium:Play()
-		fadeInDev:Play()
-	
-		fadeInSerenium.Completed:Wait() -- Wait until both are visible again
-	
-		-- Loop the sequence
-		startFadeSequence()
-	end
-	
-	-- Start the sequence
-	startFadeSequence()
+	game:GetService("RunService").RenderStepped:Connect(updateFramePosition)
 end;
-task.spawn(C_5);
--- StarterGui.watermark.main.fpscount.LocalScript
+task.spawn(C_6);
+-- StarterGui.fov.LocalScript
 local function C_7()
 local script = G2L["7"];
-	-- FPS Counter Script
+	script.Parent.ResetOnSpawn = false
 	
-	local textLabel = script.Parent -- The TextLabel this LocalScript is in
-	local runService = game:GetService("RunService")
-	
-	local lastTime = tick()
-	local fps = 0
-	
-	runService.RenderStepped:Connect(function()
-		-- Calculate FPS
-		local currentTime = tick()
-		fps = 1 / (currentTime - lastTime)
-		lastTime = currentTime
-	
-		-- Update the TextLabel with only the FPS count (rounded)
-		textLabel.Text = tostring(math.floor(fps))
-	end)
 end;
 task.spawn(C_7);
--- StarterGui.watermark.main.LocalScript
-local function C_a()
-local script = G2L["a"];
-	frame = script.Parent
-	frame.Draggable = true
-	frame.Active = true
-	frame.Selectable = true
-end;
-task.spawn(C_a);
--- StarterGui.watermark.LocalScript
-local function C_13()
-local script = G2L["13"];
-	-- Get references
-	local TweenService = game:GetService("TweenService")
-	local frame = script.Parent:WaitForChild("main") -- The "main" frame
-	local stroke = frame:WaitForChild("UIStroke") -- The UIStroke of the frame
-	local gradient = stroke:WaitForChild("UIGradient") -- The UIGradient inside the stroke
-	
-	-- Tween settings
-	local rotationSpeed = 5 -- Duration of one full rotation in seconds (adjust for speed)
-	local tweenInfo = TweenInfo.new(rotationSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true) -- Infinite repeat, auto-reverse
-	
-	-- Function to rotate the gradient
-	local function rotateGradient()
-		local tween = TweenService:Create(gradient, tweenInfo, {Rotation = 360}) -- Rotate by 360 degrees
-		tween:Play() -- Start the tween
-	end
-	
-	-- Start rotating the gradient
-	rotateGradient()
-	
-end;
-task.spawn(C_13);
 
 return G2L["1"], require;
