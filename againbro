@@ -4,7 +4,7 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
 -- The MeshPart asset ID to load
-local assetId = 92287030149072
+local assetId = 99502447592511
 
 -- Function to insert the MeshPart into ReplicatedStorage
 local function loadMeshPart(assetId)
@@ -37,18 +37,19 @@ local function attachAndHide(meshPart)
     meshPart.Anchored = false -- Ensure it's not anchored
     meshPart.CanCollide = false -- Ensure it doesn't collide with other objects
 
-    -- Create a Motor6D to attach the mesh to the HumanoidRootPart
-    local motor = Instance.new("Motor6D")
-    motor.Part0 = humanoidRootPart
-    motor.Part1 = meshPart
+    -- Create a WeldConstraint to attach the mesh to the HumanoidRootPart
+    local weld = Instance.new("WeldConstraint")
+    weld.Part0 = humanoidRootPart
+    weld.Part1 = meshPart
 
-    -- Adjust the CFrame to rotate the mesh
-    motor.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0)) -- Adjust the rotation
+    -- Set the CFrame of the mesh part to match the HumanoidRootPart's position
+    -- Correcting the rotation to make the part face the front
+    local desiredRotation = CFrame.Angles(0, math.rad(0), 0)  -- Rotate 180 degrees around Y-axis to face forward
+    local offset = CFrame.new(0, 1, 0)  -- Offset to position the part above the HRP
+    meshPart.CFrame = humanoidRootPart.CFrame * offset * desiredRotation
 
-    motor.Parent = humanoidRootPart
-
-    -- Set the MeshPart's CFrame to match the HumanoidRootPart
-    meshPart.CFrame = humanoidRootPart.CFrame
+    -- Parent the WeldConstraint to the HumanoidRootPart
+    weld.Parent = humanoidRootPart
 
     -- Make the original character parts invisible and non-collidable
     for _, part in pairs(character:GetDescendants()) do
