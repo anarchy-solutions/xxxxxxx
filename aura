@@ -1,0 +1,66 @@
+local Players = game:GetService("Players")
+
+-- The Asset ID for the part to load (replace this with your actual Asset ID)
+local assetId = 124226749555928  -- Replace this with your actual Asset ID
+
+-- Function to load the part from the asset ID using GetObjects
+local function loadPartFromAssetId(assetId)
+    print("Attempting to load asset with ID: " .. assetId)  -- Log the attempt to load asset
+
+    local success, objects = pcall(function()
+        -- Attempt to load the asset
+        return game:GetObjects("rbxassetid://" .. assetId)
+    end)
+
+    if success then
+        if objects and #objects > 0 then
+            print("Asset loaded successfully!")
+
+            local part = objects[1]  -- Get the first object from the asset
+
+            -- Check if the part is a valid instance
+            if part and part:IsA("BasePart") then
+                print("Loaded part name: " .. part.Name)
+                
+                -- Make sure the part is fully visible
+                part.Transparency = 0  -- Set transparency to 0 for full visibility
+                part.CanCollide = false  -- Disable collision to avoid interference with character
+                part.Anchored = false  -- Unanchor the part so it can move with the character
+
+                -- Optionally, adjust the part's material and color for better visibility
+                part.Material = Enum.Material.SmoothPlastic
+                part.Color = Color3.fromRGB(255, 0, 0)  -- Red for better visibility (you can change this)
+
+                -- Get the character and HumanoidRootPart
+                local character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+                local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+                -- Parent the part to the HumanoidRootPart (ensure it's visible)
+                part.Parent = humanoidRootPart
+
+                -- Create a WeldConstraint to attach the part to the HumanoidRootPart
+                local weld = Instance.new("WeldConstraint")
+                weld.Part0 = humanoidRootPart  -- Attach the weld to the HumanoidRootPart
+                weld.Part1 = part  -- Attach the part to the weld
+
+                -- Position the part relative to the HumanoidRootPart
+                part.CFrame = humanoidRootPart.CFrame * CFrame.new(0, 5, 0)  -- Adjust this offset as needed
+
+                -- Parent the weld to the HumanoidRootPart
+                weld.Parent = humanoidRootPart
+
+                -- Log the position to confirm
+                print("Part position set to: " .. tostring(part.Position))
+            else
+                warn("The loaded asset is not a valid part.")
+            end
+        else
+            warn("No valid part found in the loaded asset.")
+        end
+    else
+        warn("Failed to load asset with ID: " .. assetId)
+    end
+end
+
+-- Call the function to load the asset
+loadPartFromAssetId(assetId)
