@@ -1,0 +1,87 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- The MeshPart asset ID to load
+local assetId = 92287030149072
+
+-- Function to insert the MeshPart into ReplicatedStorage
+local function loadMeshPart(assetId)
+    local success, objects = pcall(function()
+        return game:GetObjects("rbxassetid://" .. assetId)
+    end)
+
+    if success and objects then
+        local meshPart = objects[1] -- Assuming the first object is the MeshPart
+        if meshPart and meshPart:IsA("MeshPart") then
+            meshPart.Parent = ReplicatedStorage -- Insert it into ReplicatedStorage
+            return meshPart
+        else
+            warn("No valid MeshPart found in the asset.")
+            return nil
+        end
+    else
+        warn("Failed to load asset with ID: " .. assetId)
+        return nil
+    end
+end
+
+-- Function to attach the MeshPart and make the player invisible, including removing the face
+local function attachAndHide(meshPart)
+    -- Wait for the character and HumanoidRootPart to load
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- Parent the mesh part to the character
+    meshPart.Parent = character
+    meshPart.Anchored = false -- Ensure it's not anchored
+    meshPart.CanCollide = false -- Ensure it doesn't collide with other objects
+
+    -- Create a Motor6D to attach the mesh to the HumanoidRootPart
+    local motor = Instance.new("Motor6D")
+    motor.Part0 = humanoidRootPart
+    motor.Part1 = meshPart
+
+    -- Adjust the CFrame to rotate the mesh
+    motor.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0)) -- Adjust the rotation
+
+    motor.Parent = humanoidRootPart
+
+    -- Set the MeshPart's CFrame to match the HumanoidRootPart
+    meshPart.CFrame = humanoidRootPart.CFrame
+
+    -- Make the original character parts invisible and non-collidable
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+            part.Transparency = 1 -- Make invisible
+            part.CanCollide = false -- Disable collision
+        end
+    end
+
+    -- Remove the face decal from the head
+    local head = character:FindFirstChild("Head")
+    if head then
+        local face = head:FindFirstChildOfClass("Decal")
+        if face then
+            face:Destroy() -- Remove the face decal
+        end
+    end
+
+    -- Ensure the mesh is visible and correctly attached
+    meshPart.Transparency = 0 -- Make sure the mesh is visible
+end
+
+-- Load the MeshPart from asset ID and attach it to the character
+local meshPart = loadMeshPart(assetId)
+if meshPart then
+    attachAndHide(meshPart)
+end
+
+-- Attach mesh and hide character when respawned
+player.CharacterAdded:Connect(function(char)
+    character = char
+    local meshPart = loadMeshPart(assetId)
+    if meshPart then
+        attachAndHide(meshPart)
+    end
+end)
