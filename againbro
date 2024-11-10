@@ -4,7 +4,7 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
 -- The MeshPart asset ID to load
-local assetId = 99502447592511
+local assetId = 92287030149072
 
 -- Function to insert the MeshPart into ReplicatedStorage
 local function loadMeshPart(assetId)
@@ -43,9 +43,9 @@ local function attachAndHide(meshPart)
     weld.Part1 = meshPart
 
     -- Set the CFrame of the mesh part to match the HumanoidRootPart's position
-    -- Correcting the rotation to make the part face the front
-    local desiredRotation = CFrame.Angles(0, math.rad(0), 0)  -- Rotate 180 degrees around Y-axis to face forward
-    local offset = CFrame.new(0, 1, 0)  -- Offset to position the part above the HRP
+    -- Correcting the rotation to make the mesh face the front
+    local desiredRotation = CFrame.Angles(0, math.rad(90), 0)  -- Rotate 180 degrees around Y-axis to face forward
+    local offset = CFrame.new(0, 0, 0)  -- Offset to position the part above the HRP
     meshPart.CFrame = humanoidRootPart.CFrame * offset * desiredRotation
 
     -- Parent the WeldConstraint to the HumanoidRootPart
