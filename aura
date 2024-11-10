@@ -45,7 +45,7 @@ local function attachAndHide(auraPart)
     -- Set the CFrame of the aura part to match the HumanoidRootPart's position
     -- Correcting the rotation to make the aura face the front
     local desiredRotation = CFrame.Angles(0, math.rad(180), 0)  -- Rotate 180 degrees around Y-axis to face forward
-    local offset = CFrame.new(0, 5, 0)  -- Offset to position the part above the HRP
+    local offset = CFrame.new(0, 0, 0)  -- Offset to position the part above the HRP
     auraPart.CFrame = humanoidRootPart.CFrame * offset * desiredRotation
 
     -- Parent the WeldConstraint to the HumanoidRootPart
