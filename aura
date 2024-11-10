@@ -1,66 +1,88 @@
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
 
--- The Asset ID for the part to load (replace this with your actual Asset ID)
-local assetId = 124226749555928  -- Replace this with your actual Asset ID
+-- The Part asset ID to load (for aura)
+local assetId = 124226749555928
 
--- Function to load the part from the asset ID using GetObjects
-local function loadPartFromAssetId(assetId)
-    print("Attempting to load asset with ID: " .. assetId)  -- Log the attempt to load asset
-
+-- Function to insert the Part (aura) into ReplicatedStorage
+local function loadAura(assetId)
     local success, objects = pcall(function()
-        -- Attempt to load the asset
         return game:GetObjects("rbxassetid://" .. assetId)
     end)
 
-    if success then
-        if objects and #objects > 0 then
-            print("Asset loaded successfully!")
-
-            local part = objects[1]  -- Get the first object from the asset
-
-            -- Check if the part is a valid instance
-            if part and part:IsA("BasePart") then
-                print("Loaded part name: " .. part.Name)
-                
-                -- Make sure the part is fully visible
-                part.Transparency = 0  -- Set transparency to 0 for full visibility
-                part.CanCollide = false  -- Disable collision to avoid interference with character
-                part.Anchored = false  -- Unanchor the part so it can move with the character
-
-                -- Optionally, adjust the part's material and color for better visibility
-                part.Material = Enum.Material.SmoothPlastic
-                part.Color = Color3.fromRGB(255, 0, 0)  -- Red for better visibility (you can change this)
-
-                -- Get the character and HumanoidRootPart
-                local character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
-                local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-                -- Parent the part to the HumanoidRootPart (ensure it's visible)
-                part.Parent = humanoidRootPart
-
-                -- Create a WeldConstraint to attach the part to the HumanoidRootPart
-                local weld = Instance.new("WeldConstraint")
-                weld.Part0 = humanoidRootPart  -- Attach the weld to the HumanoidRootPart
-                weld.Part1 = part  -- Attach the part to the weld
-
-                -- Position the part relative to the HumanoidRootPart
-                part.CFrame = humanoidRootPart.CFrame * CFrame.new(0, 5, 0)  -- Adjust this offset as needed
-
-                -- Parent the weld to the HumanoidRootPart
-                weld.Parent = humanoidRootPart
-
-                -- Log the position to confirm
-                print("Part position set to: " .. tostring(part.Position))
-            else
-                warn("The loaded asset is not a valid part.")
-            end
+    if success and objects then
+        local part = objects[1] -- Assuming the first object is the part
+        if part and part:IsA("Part") then
+            part.Parent = ReplicatedStorage -- Insert it into ReplicatedStorage
+            return part
         else
-            warn("No valid part found in the loaded asset.")
+            warn("No valid Part found in the asset.")
+            return nil
         end
     else
         warn("Failed to load asset with ID: " .. assetId)
+        return nil
     end
 end
 
--- Call the function to load the asset
-loadPartFromAssetId(assetId)
+-- Function to attach the Aura and make the player invisible, including removing the face
+local function attachAndHide(auraPart)
+    -- Wait for the character and HumanoidRootPart to load
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- Parent the aura part to the character
+    auraPart.Parent = character
+    auraPart.Anchored = false -- Ensure it's not anchored
+    auraPart.CanCollide = false -- Ensure it doesn't collide with other objects
+
+    -- Create a WeldConstraint to attach the aura to the HumanoidRootPart
+    local weld = Instance.new("WeldConstraint")
+    weld.Part0 = humanoidRootPart
+    weld.Part1 = auraPart
+
+    -- Set the CFrame of the aura part to match the HumanoidRootPart's position
+    -- Correcting the rotation to make the aura face the front
+    local desiredRotation = CFrame.Angles(0, math.rad(180), 0)  -- Rotate 180 degrees around Y-axis to face forward
+    local offset = CFrame.new(0, 5, 0)  -- Offset to position the part above the HRP
+    auraPart.CFrame = humanoidRootPart.CFrame * offset * desiredRotation
+
+    -- Parent the WeldConstraint to the HumanoidRootPart
+    weld.Parent = humanoidRootPart
+
+    -- Make the original character parts invisible and non-collidable
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+            part.Transparency = 1 -- Make invisible
+            part.CanCollide = false -- Disable collision
+        end
+    end
+
+    -- Remove the face decal from the head
+    local head = character:FindFirstChild("Head")
+    if head then
+        local face = head:FindFirstChildOfClass("Decal")
+        if face then
+            face:Destroy() -- Remove the face decal
+        end
+    end
+
+    -- Ensure the aura is visible and correctly attached
+    auraPart.Transparency = 1 -- Make sure the aura is visible
+end
+
+-- Load the Aura from asset ID and attach it to the character
+local auraPart = loadAura(assetId)
+if auraPart then
+    attachAndHide(auraPart)
+end
+
+-- Attach aura and hide character when respawned
+player.CharacterAdded:Connect(function(char)
+    character = char
+    local auraPart = loadAura(assetId)
+    if auraPart then
+        attachAndHide(auraPart)
+    end
+end)
